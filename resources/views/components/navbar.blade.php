@@ -44,7 +44,6 @@
                     <ul class="dropdown-menu shadow p-3 custom-search-dropdown">
                         <li><a class="dropdown-item"
                                 href="{{ route('uservendor.index') }}">{{ __('ui.tutti_i_venditori') }}</a></li>
-                        <li><a class="dropdown-item" href="{{ url('welcome/404') }}">404</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

@@ -1146,7 +1146,7 @@ p {
 .img-preview {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     height: 140px;
     width: 140px;
     border-radius: 1rem;

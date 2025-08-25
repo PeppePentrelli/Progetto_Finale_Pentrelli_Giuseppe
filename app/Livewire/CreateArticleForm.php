@@ -6,18 +6,19 @@ use App\Models\Article;
 use Livewire\Component;
 use App\Jobs\RemoveFaces;
 use App\Jobs\ResizeImage;
+use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use App\Jobs\GoogleVisionLabelImage;
 use App\Jobs\GoogleVisionSafeSearch;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class CreateArticleForm extends Component
 {
+    use WithFileUploads;
 
     // Validazioni
-
     #[Validate('required|min:5')]
     public $title;
 
@@ -48,10 +49,45 @@ class CreateArticleForm extends Component
     public $category;
     public $article;
 
-    // Store
+    // Immagini
+    public $images = [];
+    public $temporary_images = [];
+
+    public function mount()
+    {
+        $this->images = [];
+        $this->temporary_images = [];
+    }
+
+    public function updatedTemporaryImages()
+    {
+        $this->validate([
+            'temporary_images.*' => 'image|max:5024',
+            'temporary_images' => 'max:6',
+        ]);
+
+        foreach ($this->temporary_images as $image) {
+            $storedPath = $image->store('temp', 'public');
+            $this->images[] = $storedPath;
+        }
+
+        $this->temporary_images = [];
+    }
+
+    public function removeImage($key)
+    {
+        if (isset($this->images[$key])) {
+            if (File::exists(storage_path('app/public/' . $this->images[$key]))) {
+                File::delete(storage_path('app/public/' . $this->images[$key]));
+            }
+            unset($this->images[$key]);
+        }
+    }
+
     public function store()
     {
         $this->validate();
+
         $this->article = Article::create([
             'title' => $this->title,
             'description' => $this->description,
@@ -66,70 +102,33 @@ class CreateArticleForm extends Component
         ]);
 
         if (count($this->images) > 0) {
-            foreach ($this->images as $image) {
+            foreach ($this->images as $imagePath) {
                 $newFileName = "articles/{$this->article->id}";
-                $newImage = $this->article->images()->create(['path' => $image->store($newFileName, 'public')]);
+                $filename = basename($imagePath);
+                $newPath = $newFileName . '/' . $filename;
+
+                Storage::disk('public')->move($imagePath, $newPath);
+
+                $newImage = $this->article->images()->create(['path' => $newPath]);
+
+                // Job per resize e Google Vision
                 RemoveFaces::withChain([
                     new ResizeImage($newImage->path, 300, 300),
                     new GoogleVisionSafeSearch($newImage->id),
                     new GoogleVisionLabelImage($newImage->id)
                 ])->dispatch($newImage->id);
             }
-            File::deleteDirectory(storage_path('/app/livewire-tmp'));
         }
 
-        $this->reset();
+        $this->images = [];
         session()->flash('success', 'Articolo pubblicato con successo!');
     }
 
-    // Render
     public function render()
     {
         return view('livewire.create-article-form');
     }
 
-    // Logica per implementare il caricamento di immagini
-    use WithFileUploads;
-
-    public $images = [];
-    public $temporary_images;
-
-
-    public function mount()
-    {
-        $this->images = [];
-        $this->temporary_images = [];
-    }
-
-
-
-    // Validazione immagini
-    public function updatedTemporaryImages()
-    {
-        $this->validate([
-            'temporary_images.*' => 'image|max:5024',
-            'temporary_images' => 'max:6',
-
-        ]);
-
-        foreach ($this->temporary_images as $image) {
-
-            $this->images[] = $image;
-        }
-
-        //  dd($this->images); 
-    }
-
-
-    // Logica per cancellare immagini dal form
-    public function removeImage($key)
-    {
-        if (in_array($key, array_keys($this->images))) {
-            unset($this->images[$key]);
-        }
-    }
-
-    // Messaggi personalizzati per errori immagine
     public function messages()
     {
         return [

@@ -140,30 +140,21 @@
 @enderror
 
 
-@if(!empty($temporary_images))
+@if(!empty($images))
     <div class="row">
-        <div class="col-12">
-            <p>Anteprima foto:</p>
-            <div class="row border border-primary rounded shadow py-4 mx-auto mb-3">
-@foreach ($images as $key => $image)
-    <div class="col-6 col-md-3 mb-4 d-flex justify-content-center">
-        <div class="position-relative">
-<div class="img-preview" style="background-image: url('{{ 
-    $image ? $image->temporaryUrl() : (isset($article->image_path) ? Storage::url($article->image_path) : 'https://placehold.co/200x200/cccccc/ffffff?text=No+Image') 
-}}');"></div>
-            <button type="button" wire:click="removeImage({{ $key }})"
-                class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 rounded-circle"
-                title="Rimuovi">
-                &times;
-            </button>
-        </div>
-    </div>
-@endforeach
-
+        @foreach($images as $key => $path)
+            <div class="col-6 col-md-3 mb-4 d-flex justify-content-center">
+                <div class="position-relative">
+                    <div class="img-preview" style="background-image: url('{{ asset('storage/'.$path) }}');"></div>
+                    <button type="button" wire:click="removeImage({{ $key }})"
+                        class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 rounded-circle"
+                        title="Rimuovi">&times;</button>
+                </div>
             </div>
-        </div>
+        @endforeach
     </div>
 @endif
+
 
 {{-- Fine sezione caricamento immagini --}}
 
