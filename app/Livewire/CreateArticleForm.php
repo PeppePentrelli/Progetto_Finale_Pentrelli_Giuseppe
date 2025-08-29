@@ -119,6 +119,11 @@ class CreateArticleForm extends Component
                 ])->dispatch($newImage->id);
             }
         }
+   $this->reset([
+        'title', 'description', 'price', 'category_id',
+        'shipping_info', 'length_cm', 'width_cm', 'height_cm',
+        'weight_kg', 'images', 'temporary_images'
+    ]);
 
         $this->images = [];
         session()->flash('success', 'Articolo pubblicato con successo!');

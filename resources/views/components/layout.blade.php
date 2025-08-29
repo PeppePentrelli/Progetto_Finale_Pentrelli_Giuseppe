@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Presto.it</title>
+    
     {{-- direttiva blade @vite() per css --}}
     @vite(['resources/css/app.css'])
 </head>
@@ -19,6 +20,7 @@
     <div class="background-container"></div>
 
     <div style="height: 100px;"></div>
+
 
 
     {{-- Inizio contenuto $slot --}}
@@ -35,6 +37,9 @@
     {{-- direttiva blade @vite() per js --}}
     @vite(['resources/js/app.js'])
 
+
 </body>
 
 </html>
+
+

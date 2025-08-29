@@ -1,10 +1,10 @@
 navbarsearched.blade.php<x-layout>
-    <main class="container-fluid bg-light py-4">
+    <main class="container-fluid py-4">
 
 
         {{-- Titolo Risultati di Ricerca --}}
-        <h2 class="display-5 fw-bold text-primary my-5 text-center">
-            <i class="bi bi-search me-3"></i>Risultati per: "<span class="text-secondary">{{ $query }}</span>"
+        <h2 class="display-5 fw-bold heading-title my-5 text-center">
+            <i class="bi bi-search me-3"></i>Risultati per: "<span class="heading-title">{{ $query }}</span>"
         </h2>
 
         {{-- Sezione articoli --}}

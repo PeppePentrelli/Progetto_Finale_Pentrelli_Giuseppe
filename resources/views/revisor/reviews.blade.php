@@ -2,7 +2,6 @@
 
 
     <div class="container my-5">
-
         <h2 class="fw-bold mb-2">{{ __('ui.reviewManagement') }}</h2>
         <p class="mb-4">{{ __('ui.reviewInstructions') }}</p>
 
@@ -50,7 +49,7 @@
                     <div class="col flex-grow-1">
                         <strong>
                             @if ($review->user)
-                                <a href="{{ route('profilo.show', $review->user->id) }}">{{ $review->user->name }}</a>
+                                <a sty href="{{ route('profilo.show', $review->user->id) }}">{{ $review->user->name }}</a>
                             @else
                                 {{ __('ui.deletedUser') }}
                             @endif
@@ -119,7 +118,7 @@
                             @endfor
                         </div>
 
-                        <p class="fst-italic mb-1">{{ $review->text }}</p>
+                        <p class="fst-italic mb-1 text-dark">{{ $review->text }}</p>
                     </div>
 
                     {{-- Bottoni approva/rifiuta --}}

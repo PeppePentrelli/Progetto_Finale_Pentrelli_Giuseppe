@@ -16,12 +16,21 @@ class PublicController extends Controller
     }
 
     // Funzione per ricercare articoli
-    public function searchArticles(Request $request)
-    {
-        $query = $request->input('query');
-        $articles = Article::search($query)->where('is_accepted', true)->paginate(10);
-        return view('article.searched', ['articles' => $articles, 'query' => $query]);
+public function searchArticles(Request $request)
+{
+    $query = strtolower($request->input('query'));
+
+    // Easter egg: ricerca del nulla
+    $paroleNulla = ['nulla', 'niente', 'vuoto', 'zero', 'il nulla'];
+    if (in_array($query, $paroleNulla)) {
+        return view('article.nulla', ['query' => $query]);
     }
+
+    // Ricerca normale
+    $articles = Article::search($query)->where('is_accepted', true)->paginate(10);
+    return view('article.searched', ['articles' => $articles, 'query' => $query]);
+}
+    
 
     // funzione per cambiare lingua
 

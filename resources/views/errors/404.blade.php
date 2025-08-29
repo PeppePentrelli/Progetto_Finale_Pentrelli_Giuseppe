@@ -632,9 +632,9 @@ body{
     <div class="text_4043">4</div>
   </div>
 </div>
-
+<h1>Hai cercato qualcosa che non esiste. Ma anche i sogni iniziano così.</h1>
     <a href="{{ url('/') }}" 
-   style="display:block; margin-top:20px; text-align:center; color:#000000; font-weight:bold;">
+   style="display:block; margin-top:20px; text-align:center; color:#000000; font-weight:bold; font-size: 40px;">
    ⬅ Torna alla Home
 </a>
 </body>

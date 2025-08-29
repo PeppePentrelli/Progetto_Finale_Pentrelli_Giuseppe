@@ -143,7 +143,7 @@ const logoMap = {
         });
     }
 
-    /* ========== Lazy Load Logos with Intersection Observer ========== */
+
     function lazyLoadLogos(selector) {
         const logos = document.querySelectorAll(selector);
         if (!('IntersectionObserver' in window)) {
@@ -182,7 +182,7 @@ const logoMap = {
             themeSelector.value = savedTheme;
             applyTheme(savedTheme);
             changeLogo('.logo-nav', savedTheme);
-            // Per le logo-main usiamo lazy load:
+        
             document.querySelectorAll('.logo-main').forEach(img => {
                 const logosForMain = logoMap['.logo-main'];
                 if (logosForMain[savedTheme]) {
@@ -209,4 +209,6 @@ const logoMap = {
         });
     }
 });
+
+
 

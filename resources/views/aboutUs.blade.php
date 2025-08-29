@@ -129,9 +129,7 @@
         </section>
 
 
-        
-        
-        
+
         
         {{-- Sezione video personali --}}
         <section class="container-fluid mb-5 video3dcontainer">
@@ -139,7 +137,13 @@
                 <div class="text-center ">
                     <h2 class="heading-title fw-bold">{{__('ui.raccoltaProgetti')}}</h2>
                     <p class="fst-italic fs-5">{{__('ui.videoPercorso')}}</p>
+                    <div class="text-center mt-4">
+                        <button id="playAllBtn" class="btn footer-btn">
+                                <i class="bi bi-play-fill me-2"></i>Riproduci tutti i video
+                        </button>
+                    </div>
                 </div>
+                        
                 <div class="video3d-wrapper"
                     style="perspective: 1200px; width: 400px; height: 250px; position: relative;">
                     <div class="video3d-carousel"
@@ -192,6 +196,16 @@
         </section>
 
 
+        <script>
+                document.getElementById('playAllBtn').addEventListener('click', () => {
+        const videos = document.querySelectorAll('.video3d-slide video');
+        videos.forEach(video => {
+            video.play().catch(err => {
+                console.warn('Autoplay bloccato per:', video, err);
+            });
+        });
+    });
+        </script>
 
 
 
@@ -269,8 +283,6 @@
                 });
             </script>
         </section>
-
-
 
         {{-- Sezione Social --}}
         <section id="social" class="text-center mb-5">

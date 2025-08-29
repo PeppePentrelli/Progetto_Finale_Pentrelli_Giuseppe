@@ -44,6 +44,9 @@ Route::get('revisor/show', [RevisorController::class, 'show'])->middleware('isRe
 Route::patch('/accept/{article}', [RevisorController::class, 'accept'])->name('accept');
 Route::patch('/reject/{article}', [RevisorController::class, 'reject'])->name('reject');
 Route::get('/revisor/reviews', [RevisorController::class, 'reviews'])->name('revisor.reviews');
+// rotte per revisoneare ordini
+    Route::get('/revisor/orders', [CartController::class, 'indexForRevisor'])->name('revisor.orders.index');
+    Route::get('/revisor/orders/{order}', [CartController::class, 'showForRevisor'])->name('revisor.orders.show');
 
 // Recensioni articoli
 Route::post('/revisor/article-reviews/{review}/approve', [RevisorController::class, 'approveArticleReview'])->name('revisor.articleReviews.approve');
@@ -74,3 +77,14 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{article}', [CartController::class, 'add'])->name('cart.add');
 Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+// aggiungi o rimuovi 1 articolo
+Route::patch('/cart/increment/{cartItem}', [CartController::class, 'increment'])->name('cart.increment');
+Route::patch('/cart/decrement/{cartItem}', [CartController::class, 'decrement'])->name('cart.decrement');
+
+
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [CartController::class, 'processCheckout'])->name('checkout.process');
+
+
+// Rotte ester eggs
+Route::get('/nulla', [PublicController::class, 'paginaDelNulla'])->name('nulla');

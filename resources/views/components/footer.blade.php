@@ -1,6 +1,6 @@
     <footer class="text-center text-lg-start text-light text-muted" data-aos="fade-up">
         <!-- Sezione: Social media -->
-        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom text-light">
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom heading-title">
             <div class="me-5 d-none d-lg-block">
                 <span>{{ __('ui.followMeSocial') }}</span>
             </div>
@@ -28,14 +28,14 @@
                         <div class="mt-5 bord">
                             <h5 class="heading-title">{{ __('ui.becomeRevisor') }}</h5>
                             <p>{{ __('ui.clickToRequest') }}</p>
-                            <a class="btn" style="background-color: var(--navbar-bg); color: var(--nav-link)"
+                            <a class="btn footer-btn bold"
                                 href="{{ route('become.revisor') }}">{{ __('ui.becomeRevisor') }}</a>
                         </div>
 
                         <div class="mt-5 bord heading-title">
                             <h5 class="heading-title">{{ __('ui.becomeVendor') }}</h5>
                             <p>{{ __('ui.clickToRequest') }}</p>
-                            <a class="btn text-white" style="background-color: var(--navbar-bg); 
+                            <a class="btn footer-btn bold" 
                                 href="{{ route('become.vendor') }}">{{ __('ui.becomeVendor') }}</a>
                         </div>
                     </div>
@@ -94,17 +94,44 @@
                     <!-- Colonna: Contatti -->
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <h6 class="text-uppercase fw-bold mb-4 heading-title">{{ __('ui.contacts') }}</h6>
-                        <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
-                        <p><i class="fas fa-envelope me-3"></i> info@example.com</p>
-                        <p><i class="fas fa-phone me-3"></i> +01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> +01 234 567 89</p>
+                        <p><i class="fas fa-home me-3"></i>Modugno (Ba)</p>
+                        <p><i class="fas fa-envelope me-3"></i>peppepentrelli95@gmail.com</p>
+                        <p><i class="fas fa-phone me-3"></i> 3396449911</p>
                     </div>
                 </div>
             </div>
         </section>
 
+
+
+<div class="d-flex justify-content-end">
+        <p><a href="#top" class="text-reset text-decoration-none me-3"><i class="bi bi-arrow-up-circle"></i> Torna su</a></p>
+</div>
+
+@php
+$curiosita = [
+    "“Life is like riding a bicycle. To keep your balance, you must keep moving.” – Albert Einstein",
+    "“Simplicity is the soul of efficiency.” – Austin Freeman",
+    "“Code is like humor. When you have to explain it, it’s bad.” – Cory House",
+    "“Programs must be written for people to read, and only incidentally for machines to execute.” – Harold Abelson",
+    "“The best way to get a project done faster is to start sooner.” – Jim Highsmith",
+    "“Clean code always looks like it was written by someone who cares.” – Michael Feathers",
+    "“The function of good software is to make the complex appear simple.” – Grady Booch",
+    "“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.” – Martin Fowler",
+    "“First, solve the problem. Then, write the code.” – John Johnson",
+    "“Good software, like wine, takes time.” – Joel Spolsky"
+];
+
+$curiositaRandom = $curiosita[array_rand($curiosita)];
+view()->share('curiositaRandom', $curiositaRandom);
+@endphp
+
+<div class="mt-4 fst-italic heading-title text-center mb-3">
+    {{ $curiositaRandom }}
+</div>
+
         <!-- Copyright -->
-        <div class="text-center p-4 heading-title">
+        <div class="text-center p-4 border-top" style="color: var(--text-color);">
             © 2025 Copyright: Presto.it | POWERADE BY
             <a class="text-decoration-none fw-bold heading-title" href="https://mdbootstrap.com/">
                 Pentrelli Giuseppe <i class="bi bi-lightning-fill thunderbolt"></i>

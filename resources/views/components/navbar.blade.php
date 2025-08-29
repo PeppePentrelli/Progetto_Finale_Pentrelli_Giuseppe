@@ -27,12 +27,20 @@
                     <ul class="dropdown-menu shadow p-3 custom-search-dropdown">
                         <li><a class="dropdown-item" href="{{ route('article.index') }}">{{ __('ui.allArticle') }}</a>
                         </li>
-                        <li><a class="dropdown-item"
-                                href="{{ route('article.create') }}">{{ __('ui.publishArticle') }}</a></li>
+                        <hr>
+                        @foreach($categories as $category)
+    <li>
+        <a class="dropdown-item" href="{{ route('byCategory', $category) }}">
+            {{ $category->name }}
+        </a>
+    </li>
+        <li><hr class="dropdown-divider"></li>
+@endforeach
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{{ url('welcome/404') }}">404</a></li>
+                       
                     </ul>
                 </li>
 
@@ -92,9 +100,9 @@
                         </li>
                         <hr>
                     @empty
-                        <li class="list-group-item text-center text-muted">
+                        {{-- <li class="list-group-item text-center text-muted">
                             {{ _('ui.noArticles') }}
-                        </li>
+                        </li> --}}
                     @endforelse
                 </ul>
             </div>
@@ -206,9 +214,10 @@
             @auth
 
 
-                <div class="me-3">
+                {{-- <div class="me-3">
                     <p style="color: var(--nav-link--); margin: 0;"> {{ __('ui.welcome') }} {{ Auth::user()->name }}</p>
-                </div>
+                </div> --}}
+
                 @if (Auth::user()->is_revisor)
                     <div style="height: 50px; width: auto" class="me-2 d-flex align-items-center">
                         <img style="height: 30px; width: auto" class="img-fluid" src="/media/loghi-nav/isRevisor.png"
@@ -221,7 +230,7 @@
                     </div>
                 @endif
                 <li
-                    class="nav-item dropdown list-unstyled   {{ (Auth::user()->is_revisor && \App\Models\Article::toBeRevisedCount() > 0) ? 'avatar-border-alert' : '' }}">
+                    class="nav-item dropdown list-unstyled   {{ Auth::user()->is_revisor && \App\Models\Article::toBeRevisedCount() > 0 ? 'avatar-border-alert' : '' }}">
                     <a class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#"
                         id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{ Auth::user()->profile_image_url ?? asset('images/defaults/default-avatar.png') }}"
@@ -230,17 +239,36 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+                        <li>
+
+                            <p class="dropdown-item"> {{ __('ui.welcome') }} {{ Auth::user()->name }}</p>
+
+                        </li>
+
+                        <hr>
                         <li>
                             <a class="dropdown-item" href="{{ route('profilo.show', Auth::user()) }}">
                                 {{ __('ui.my_profile') }}
                             </a>
                         </li>
 
-                        <li>
-                            <a class="dropdown-item" href="{{ route('cart.index') }}">
-                                 {{ __('ui.cart') }}
-                            </a>
-                        </li>
+                        @if (Auth::user()->is_vendor || Auth::user()->is_revisor)
+                                                    <li><a class="dropdown-item"
+                                href="{{ route('article.create') }}">{{ __('ui.publishArticle') }}</a></li>
+                        @endif
+
+
+<li>
+    <a class="dropdown-item" href="{{ route('cart.index') }}">
+        {{ __('ui.cart') }}
+        @if(isset($cartCount) && $cartCount > 0)
+            <span class="badge rounded-pill bg-danger ms-2">
+                {{ $cartCount }}
+            </span>
+        @endif
+    </a>
+</li>
 
                         @if (Auth::user()->is_revisor)
                             <li>
@@ -252,18 +280,32 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a class="dropdown-item {{ request()->routeIs('revisor.reviews') ? 'active' : '' }}"
-                                    href="{{ route('revisor.reviews') }}">
-                                    {{ __('ui.approve_reviews') }}
-                                </a>
-                            </li>
+<li>
+    <a class="dropdown-item d-flex justify-content-between align-items-center {{ request()->routeIs('revisor.reviews') ? 'active' : '' }}"
+        href="{{ route('revisor.reviews') }}">
+        {{ __('ui.approve_reviews') }}
+
+        @if(\App\Models\Review::where('approved', false)->count() > 0)
+            <span class="badge rounded-pill bg-danger ms-2">
+                {{ \App\Models\Review::where('approved', false)->count() }}
+            </span>
+        @endif
+    </a>
+</li>
 
                             <li>
                                 <a class="dropdown-item" href="{{ route('revisor.newsletters') }}">
                                     {{ __('ui.view_newsletter_subscribers') }}
                                 </a>
                             </li>
+<li>
+    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('revisor.orders.index') }}">
+        Dashboard Ordini
+        @if($ClientOrders > 0)
+            <span class="badge rounded-pill bg-danger ms-2">{{ $ClientOrders }}</span>
+        @endif
+    </a>
+</li>
                         @endif
 
                         <li>

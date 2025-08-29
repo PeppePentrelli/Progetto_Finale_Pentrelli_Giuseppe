@@ -36,7 +36,9 @@
 
     --footer-bg: ;
     --footer-text: ;
+    --btn-footer-color: ;
     --card-bg: ;
+    --price-color: ;
 
     /* Animazioni */
     --gradient-color-1: ;
@@ -86,7 +88,9 @@ body,
     --accessibilityBtn-color: rgb(33, 31, 33);
     --footer-bg: rgb(255, 237, 0);
     --footer-text: rgb(33, 31, 33);
+    --btn-footer-color : rgb(33, 31, 33);
     --card-bg: rgba(33, 31, 33, 0.8);
+    --price-color: rgb(255, 255, 255);
 
     /* Animazioni */
     --gradient-color-1: rgb(33, 31, 33);
@@ -104,6 +108,7 @@ body,
     --contrast-color: rgb(70, 70, 207);
     --placeholder-modal-color: rgb(33, 31, 33);
     --heading-Title: rgb(70, 70, 207);
+    
 
 
 
@@ -130,7 +135,10 @@ body,
 
     --footer-bg: rgb(70, 70, 207);
     --footer-text: rgb(255, 255, 255);
+    --btn-footer-color: rgb(255, 255, 255);
+
     --card-bg: rgba(33, 31, 33, 0.8);
+    --price-color : rgb(70, 70, 207);
 
     /* Animazioni */
     --gradient-color-1: whitesmoke;
@@ -171,7 +179,10 @@ body,
     --accessibilityBtn-color: rgb(220, 20, 60);
     --footer-bg: var(--accent-color);
     --footer-text: var(--text-color);
+    --btn-footer-color: rgb(255, 255, 255);
+
     --card-bg: rgba(24, 24, 24, 0.8);
+    --price-color: rgb(220, 20, 60);
 
     /* Animazioni */
     --gradient-color-1: whitesmoke;
@@ -210,7 +221,10 @@ body,
     --accessibilityBtn-color: whitesmoke;
     --footer-bg: rgba(24, 60, 48, 0.8);
     --footer-text: whitesmoke;
+    --btn-footer-color: rgb(255, 255, 255);
+
     --card-bg: rgba(24, 60, 48, 0.8);
+    --price-color:rgb(139, 186, 115);
 
 
     /* Animazioni */
@@ -218,7 +232,6 @@ body,
     --gradient-color-2: rgb(245, 245, 220);
     --gradient-color-3: rgb(245, 245, 220);
 }
-
 
 /* --------------------Componenti Semantici------------------- */
 
@@ -275,12 +288,9 @@ p {
     color: var(--form-p);
 }
 
-
-
 .form-container a {
     color: var(--form-a);
 }
-
 
 .btn-social-form {
     background-color: var(--form-btn-social-bg);
@@ -442,6 +452,23 @@ p {
 }
 
 /* Footer */
+
+.footer-btn {
+    color: var(--btn-footer-color) ;
+    background-color: var(--navbar-bg);
+    transition: 0.5s;
+}
+
+.footer-btn:hover {
+    color: var(--btn-footer-color) ;
+    background-color: var(--navbar-bg);
+    transform: translateY(-3px);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.livewireIspiration{ 
+color: var(--text-color);
+}
 
 .thunderbolt {
     animation-name: thunderboltAnimation;
@@ -633,7 +660,7 @@ p {
 .nav-link {
     position: relative;
     transition: color 0.3s;
-    color: var(--nav-link--);
+    color: var(--nav-link--) ;
     font-size: clamp(12px, 1.1vw, 28px)
 }
 
@@ -652,6 +679,11 @@ p {
     height: 2px;
     transition: width 0.3s ease-in-out;
     content: "";
+}
+
+.nav-link:focus{
+    color: var(--nav-link--);
+
 }
 
 /* Bottoni search e login */
@@ -1870,3 +1902,28 @@ p {
         width: 180px;
     }
 }
+
+/* PAGINA CARRELLO */
+
+    table.table {
+        background-color: transparent !important;
+        color: white !important;
+    }
+
+    .table-responsive {
+        background-color: transparent !important;
+        color: white !important;
+
+    }
+
+    thead, tbody, tr, td {
+        background-color: transparent !important;
+        color: var(--price-color) !important;
+
+    }
+
+
+
+
+
+
